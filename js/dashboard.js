@@ -1,5 +1,5 @@
 var permitsResourceId = "6ace8b5c-fd67-4233-9b4d-7ef58010163f";
-var inspectionsResourceId = "";
+var inspectionsResourceId = "2194b28a-25bf-428a-9169-7221de4480e8";
 var baseURI = "http://www.civicdata.com/api/action/datastore_search_sql?sql=";
 var startDate = moment().subtract(30, 'd').format("YYYY-MM-DD");
 var startDateMoment = moment().subtract(30, 'd');
@@ -191,7 +191,7 @@ $(document).ready(function() {
 
   forceDelay(1000);
 
-  var urlLast30InspectionsQuery = "SELECT \"PermitNum\",\"InspType\",\"Result\",\"ScheduledDate\",\"InspectedDate\",\"InspectionNotes\" from \"inspectionsResourceId\" where \"InspectedDate\" > \'" + startDate + "' order by \"InspectedDate\" DESC";
+  var urlLast30InspectionsQuery = "SELECT \"PermitNum\",\"InspType\",\"Result\",\"ScheduledDate\",\"InspectedDate\" from \"inspectionsResourceId\" where \"InspectedDate\" > \'" + startDate + "' order by \"InspectedDate\" DESC";
   
   var urlLast30Inspections = baseURI + encodeURIComponent(urlLast30InspectionsQuery.replace("inspectionsResourceId", inspectionsResourceId));
 
