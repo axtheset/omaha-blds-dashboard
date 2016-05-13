@@ -19,7 +19,7 @@
     <link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/boco.css" rel="stylesheet">
+    <link href="css/blds.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -75,6 +75,9 @@
                                 <li>
                                     <a href="animated.html">Animated Heatmap</a>
                                 </li>
+                                <li>
+                                    <a href="cluster.html">Cluster Map</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -110,8 +113,6 @@
 
     <script>
       function main() {
-
-
         cartodb.createVis('map', 'https://sethaxthelm.cartodb.com/api/v2/viz/a225685c-08ba-11e6-8e05-0ecd1babdde5/viz.json', {//'https://sethaxthelm.cartodb.com/api/v2/viz/d3230050-dfa7-11e4-b329-0e018d66dc29/viz.json', {
           title: true,
           description: true, 
@@ -128,7 +129,6 @@
         })
         .done(function(vis, layers) {
           // layer 0 is the base layer, layer 1 is cartodb layer
-
         })
         .error(function(err) {
           console.log(err);
@@ -140,4 +140,3 @@
 </body>
 
 </html>
-
