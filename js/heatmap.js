@@ -1,11 +1,11 @@
 // API base URL and SQL strings.
 var urlBase = 'http://www.civicdata.com/api/action/datastore_search_sql?sql=';
 var startDate = moment().subtract(30, 'd').format("YYYY-MM-DD");
-var markers_sql_string = "SELECT \"LAT\",\"LON\",\"OriginalAddress1\",\"OriginalZip\",\"PermitType\",\"PermitNum\",\"Link\",\"IssuedDate\" from \"6ace8b5c-fd67-4233-9b4d-7ef58010163f\" WHERE \"IssuedDate\" > \'" + startDate + "'";
+var markers_sql_string = "SELECT \"LAT\",\"LON\",\"EstProjectCost\" from \"6ace8b5c-fd67-4233-9b4d-7ef58010163f\" WHERE \"IssuedDate\" > \'" + startDate + "'";
 
 // Create the map.
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2V0aGF4dGhlbG0iLCJhIjoiU1dNaUNYQSJ9.G7rc30ZBRUxUd0k6dSue8A';
-var map = L.mapbox.map('cluster', 'mapbox.light', {
+var map = L.mapbox.map('heatmap', 'mapbox.dark', {
     legendControl: {
         // Any of the valid control positions:
         // https://www.mapbox.com/mapbox.js/api/v2.4.0/l-control/#control-positions
@@ -13,6 +13,8 @@ var map = L.mapbox.map('cluster', 'mapbox.light', {
     }
   })
   .setView([41.264675,-96.041927], 12);
+
+var heat = L.heatLayer([], { maxZoom: 12 , radius: 20, minOpacity: 0.4}).addTo(map);
 
 map.legendControl.addLegend(document.getElementById('legend').innerHTML);
 
@@ -46,7 +48,7 @@ function getData(url, before, after) {
 
 // Function to place markers on map for each retrieved building permit.
 function placeMarkers(xhr) {
-  var markers = new L.MarkerClusterGroup();
+  var layer = new L.mapbox.featureLayer();
 
   var records = xhr.responseJSON.result.records
   for(var i=0; i<records.length; i++) {
@@ -55,25 +57,32 @@ function placeMarkers(xhr) {
     }
     //var marker = L.mapbox.map([records[i].LAT, records[i].LON]).addTo(map);
    var title = records[i].PermitNum;
-   var marker = L.marker(new L.LatLng(records[i].LAT, records[i].LON), {
+   var marker = L.marker(new L.LatLng(records[i].LAT, records[i].LON, records[i].EstProjectCost/100000), {
         icon: L.mapbox.marker.icon({'marker-symbol': 'building', 'marker-size': 'small','marker-color': '0044FF'}),
         title: title
     });
 
-    var popUpContent = '<div><ul style="list-style-type: none;">';
+
+
+    /*var popUpContent = '<div><ul style="list-style-type: none;">';
     popUpContent += '<li class="permitNum"><strong>Permit Number:</strong> ' + records[i].PermitNum + '</li>';
     popUpContent += '<li class="address"><strong>Address:</strong> ' + records[i].OriginalAddress1 + '</li>';
     popUpContent += '<li class="zip hidden"><strong>Zip:</strong> ' + records[i].OriginalZip + '</li>';
     popUpContent += '<li class="permitType"><strong>Permit Type:</strong> ' + records[i].PermitType + '</li>';
     popUpContent += '<li class="IssuedDate"><strong>Issued Date:</strong> ' + records[i].IssuedDate + '</li>';
     popUpContent += '<li><a href="' + records[i].Link + '" class="details" target="_blank">Permit Details</a></li>';
-    popUpContent += '</ul></div>';
+    popUpContent += '</ul></div>';*/
 
-    marker.bindPopup(popUpContent);
-    markers.addLayer(marker);
+    //marker.bindPopup(popUpContent);
+    layer.addLayer(marker);
+
   }
-  map.fitBounds(markers.getBounds());
-  map.addLayer(markers);
+
+  //map.fitBounds(layer.getBounds());
+  layer.eachLayer(function(l) {
+        heat.addLatLng(l.getLatLng());
+    });
+  //map.addLayer(markers);
  
 }
 

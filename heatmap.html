@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -27,6 +27,10 @@
     <link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/spacelab/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/c3/0.3.0/c3.min.css">
 
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
+    <link href='https://mapbox.com/base/latest/base.css' rel='stylesheet' />
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,13 +38,21 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+  <style>
+  body { margin:0; padding:0; }
+  #map-container { position:absolute; top:50px; bottom:0; height: 93%; width:85%; }
+  #heatmap { position:absolute; top:0; bottom:0; width:100%; }
+
+  </style>
+
 </head>
 
 <body>
 
-    <div id="wrapper">
 
+    <div id="wrapper">
         <!-- Navigation -->
+        <div id="container">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -61,7 +73,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
                             <a href="wordcloud.html"><i class="fa fa-cloud fa-fw"></i> Word Cloud</a>
@@ -81,6 +93,9 @@
                                 <li>
                                     <a href="heatmap.html">Heatmap</a>
                                 </li>
+                                <li>
+                                    <a href="heatmap.html">Heatmap</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -94,52 +109,41 @@
             <!-- /.navbar-static-side -->
         </nav>
         
-
-        <!-- Page Content -->
         <div id="page-wrapper">
-            <!-- /.row https://sethaxthelm.cartodb.com/api/v2/viz/d3230050-dfa7-11e4-b329-0e018d66dc29/viz.json -->
+        <!-- Page Content -->
+
             <div class="row">
-                <div id="map" style="height:100vh;">
+                <div id="map-container">
+                    <div id='legend' style='display:none;'>
+                      <h1>Issued Permits Last 30 Days</h1>
+                      <h2>Job Value Density</h2>
+                        <p>Omaha, NE</p>
+                    </div>
+                    <div id='heatmap'> </div>
                 </div>
             </div>
+
         </div>
-    </div> <!-- /container -->
+        <!-- /#page-wrapper -->
+        </div>
+    </div>
+    <!-- /#wrapper -->
         
 
 
     <!-- /#wrapper -->
     <script src="js/jquery.js"></script>
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.13/cartodb.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="js/sb-admin-2.js"></script>
-
-    <script>
-      function main() {
-        cartodb.createVis('map', 'https://sethaxthelm.cartodb.com/api/v2/viz/a225685c-08ba-11e6-8e05-0ecd1babdde5/viz.json', {//'https://sethaxthelm.cartodb.com/api/v2/viz/d3230050-dfa7-11e4-b329-0e018d66dc29/viz.json', {
-          title: true,
-          description: true, 
-          shareable: false, 
-          search: false, 
-          zoomControl: true, 
-          loaderControl: true, 
-          layer_selector: true, 
-          fullscreen: false,
-          //tiles_loader: true,
-          center_lat: 41.264675, 
-          center_lon: -96.041927,
-          zoom: 12
-        })
-        .done(function(vis, layers) {
-          // layer 0 is the base layer, layer 1 is cartodb layer
-        })
-        .error(function(err) {
-          console.log(err);
-        });
-      }
-      window.onload = main;
-    </script>
+    <!-- Momentjs JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.1/moment.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-heat/v0.1.3/leaflet-heat.js'></script>
+    <script src="js/heatmap.js"></script>
 
 </body>
 
 </html>
+
