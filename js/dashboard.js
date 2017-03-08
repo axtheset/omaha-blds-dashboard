@@ -1,5 +1,5 @@
-var permitsResourceId = "6ace8b5c-fd67-4233-9b4d-7ef58010163f";
-var inspectionsResourceId = "2194b28a-25bf-428a-9169-7221de4480e8";
+var permitsResourceId = "4f26538e-3f53-49a7-97e9-d9e725f79916";
+var inspectionsResourceId = "2483a53a-b400-4f25-bac7-1bb7045e70b2";
 var baseURI = "http://www.civicdata.com/api/action/datastore_search_sql?sql=";
 var startDate = moment().subtract(30, 'd').format("YYYY-MM-DD");
 var startDateMoment = moment().subtract(30, 'd');

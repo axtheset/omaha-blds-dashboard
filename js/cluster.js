@@ -1,7 +1,7 @@
 // API base URL and SQL strings.
 var urlBase = 'http://www.civicdata.com/api/action/datastore_search_sql?sql=';
 var startDate = moment().subtract(30, 'd').format("YYYY-MM-DD");
-var markers_sql_string = "SELECT \"LAT\",\"LON\",\"OriginalAddress1\",\"OriginalZip\",\"PermitType\",\"PermitNum\",\"Link\",\"IssuedDate\" from \"6ace8b5c-fd67-4233-9b4d-7ef58010163f\" WHERE \"IssuedDate\" > \'" + startDate + "'";
+var markers_sql_string = "SELECT \"LAT\",\"LON\",\"OriginalAddress1\",\"OriginalZip\",\"PermitType\",\"PermitNum\",\"Link\",\"IssuedDate\" from \"4f26538e-3f53-49a7-97e9-d9e725f79916\" WHERE \"IssuedDate\" > \'" + startDate + "'";
 
 // Create the map.
 L.mapbox.accessToken = 'pk.eyJ1Ijoic2V0aGF4dGhlbG0iLCJhIjoiU1dNaUNYQSJ9.G7rc30ZBRUxUd0k6dSue8A';
