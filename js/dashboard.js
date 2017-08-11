@@ -247,7 +247,7 @@ $(document).ready(function() {
   /* Average Issuance Days (START)
   /********************************************************************************/
 
-  var urlLast12Query = "SELECT \"PermitNum\",\"AppliedDate\",\"IssuedDate\",\"PermitTypeMapped\" from \"permitsResourceId\" where \"IssuedDate\" > \'" + startDate + "' and \"IssuedDate\" <> '' order by \"IssuedDate\" DESC";
+  var urlLast12Query = "SELECT \"PermitNum\",\"AppliedDate\",\"IssuedDate\",\"PermitTypeMapped\" from \"permitsResourceId\" where \"IssuedDate\" > \'" + startDate + "' and \"IssuedDate\" <> '' and \"PermitTypeMapped\" <> \'Fence\' order by \"IssuedDate\" DESC";
   var urlLast12 = baseURI + encodeURIComponent(urlLast12Query.replace("permitsResourceId", permitsResourceId));
   
   requestJSON(urlLast12, function(json) {
@@ -311,17 +311,10 @@ $(document).ready(function() {
             avg,
             //high,
             //low,
-            median,
-            stdDeviation
+            //median,
+            //stdDeviation
         ],
-        types: {
-          Average: 'area-spline',
-          //High: 'spline',
-          //Low: 'spline',
-          Median: 'spline', 
-          StdDeviation: 'area-spline'
-          // 'line', 'spline', 'step', 'area', 'area-step' are also available to stack
-        },
+        type: 'bar',
         groups: [permitTypes]
       },
       axis: {
