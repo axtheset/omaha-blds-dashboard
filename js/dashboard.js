@@ -189,7 +189,7 @@ $(document).ready(function() {
   /* Get all inspections in last 30 days (START)
   /********************************************************************************/
 
-  forceDelay(1000);
+  forceDelay(2000);
 
   var urlLast30InspectionsQuery = "SELECT \"PermitNum\",\"InspType\",\"Result\",\"ScheduledDate\",\"InspectedDate\" from \"inspectionsResourceId\" where \"InspectedDate\" > \'" + startDate + "' order by \"InspectedDate\" DESC";
   
@@ -210,7 +210,7 @@ $(document).ready(function() {
   /* Permits by type (START)
   /********************************************************************************/ 
 
-  forceDelay(1000);
+  forceDelay(5000);
 
   var permitTypesQuery = "SELECT \"PermitTypeMapped\", count(*) as Count from \"permitsResourceId\" where \"IssuedDate\" > '" + startDate + "' group by \"PermitTypeMapped\" order by Count desc";
 
